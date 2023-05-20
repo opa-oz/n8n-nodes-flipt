@@ -5,7 +5,7 @@ export class Flipt implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Flipt',
 		name: 'flipt',
-		icon: 'file:flipt.svg',
+		icon: 'file:logo.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -18,11 +18,11 @@ export class Flipt implements INodeType {
 		credentials: [
 			{
 				name: 'fliptApi',
-				required: false,
+				required: true,
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://flipt.io',
+			baseURL: '={{$credentials?.domain}}',
 			url: '',
 			headers: {
 				Accept: 'application/json',
@@ -37,11 +37,11 @@ export class Flipt implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'HTTP Verb',
-						value: 'httpVerb',
+						name: 'Operation',
+						value: 'getFlag',
 					},
 				],
-				default: 'httpVerb',
+				default: 'getFlag',
 			},
 
 			...httpVerbOperations,

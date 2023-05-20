@@ -1,6 +1,6 @@
 import { INodeProperties } from 'n8n-workflow';
 
-// When the resource `httpVerb` is selected, this `operation` parameter will be shown.
+// When the resource `getFlag` is selected, this `operation` parameter will be shown.
 export const httpVerbOperations: INodeProperties[] = [
 	{
 		displayName: 'Operation',
@@ -10,7 +10,7 @@ export const httpVerbOperations: INodeProperties[] = [
 
 		displayOptions: {
 			show: {
-				resource: ['httpVerb'],
+				resource: ['getFlag'],
 			},
 		},
 		options: [
@@ -21,18 +21,7 @@ export const httpVerbOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '/get',
-					},
-				},
-			},
-			{
-				name: 'DELETE',
-				value: 'delete',
-				action: 'Perform a DELETE request',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '/delete',
+						url: '=/api/v1/namespaces/{{$parameter.namespace}}/flags/{{$parameter.featureFlag}}',
 					},
 				},
 			},
@@ -51,7 +40,7 @@ const getOperation: INodeProperties[] = [
 		description: 'Select namespace',
 		displayOptions: {
 			show: {
-				resource: ['httpVerb'],
+				resource: ['getFlag'],
 				operation: ['get'],
 			},
 		},
@@ -65,7 +54,7 @@ const getOperation: INodeProperties[] = [
 		description: 'Flag name',
 		displayOptions: {
 			show: {
-				resource: ['httpVerb'],
+				resource: ['getFlag'],
 				operation: ['get'],
 			},
 		},

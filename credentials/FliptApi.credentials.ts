@@ -6,16 +6,17 @@ import {
 } from 'n8n-workflow';
 
 export class FliptApi implements ICredentialType {
-	name = 'httpfliptapiApi';
+	name = 'fliptApi';
 	displayName = 'Flipt API';
+	icon = "file:logo.svg";
 	documentationUrl = 'https://www.flipt.io/docs/integration';
 	properties: INodeProperties[] = [
-		{
-			displayName: 'Token',
-			name: 'token',
-			type: 'string',
-			default: '',
-		},
+		// {
+		// 	displayName: 'Token',
+		// 	name: 'token',
+		// 	type: 'string',
+		// 	default: '',
+		// },
 		{
 			displayName: 'Domain',
 			name: 'domain',
@@ -28,7 +29,8 @@ export class FliptApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				Authorization: '={{"Bearer " + $credentials.token}}',
+				'X-Custom-Header': 'n8n-ndoes-flipt'
+				// Authorization: '={{"Bearer " + $credentials.token}}',
 			},
 		},
 	};
@@ -36,7 +38,7 @@ export class FliptApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials?.domain}}',
-			url: '/auth/v1/self',
+			url: '/api/v1/namespaces',
 		},
 	};
 }
