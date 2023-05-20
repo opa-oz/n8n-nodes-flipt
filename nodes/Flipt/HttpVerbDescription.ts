@@ -1,0 +1,83 @@
+import { INodeProperties } from 'n8n-workflow';
+
+// When the resource `httpVerb` is selected, this `operation` parameter will be shown.
+export const httpVerbOperations: INodeProperties[] = [
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+
+		displayOptions: {
+			show: {
+				resource: ['httpVerb'],
+			},
+		},
+		options: [
+			{
+				name: 'GET',
+				value: 'get',
+				action: 'Perform a GET request',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/get',
+					},
+				},
+			},
+			{
+				name: 'DELETE',
+				value: 'delete',
+				action: 'Perform a DELETE request',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '/delete',
+					},
+				},
+			},
+		],
+		default: 'get',
+	},
+];
+
+// Here we define what to show when the `get` operation is selected.
+// We do that by adding `operation: ["get"]` to `displayOptions.show`
+const getOperation: INodeProperties[] = [
+	{
+		displayName: 'Namespace',
+		name: 'namespace',
+		default: 'default',
+		description: 'Select namespace',
+		displayOptions: {
+			show: {
+				resource: ['httpVerb'],
+				operation: ['get'],
+			},
+		},
+		type: 'string',
+		required: true,
+	},
+	{
+		displayName: 'Feature Flag',
+		name: 'featureFlag',
+		default: 'my_flag',
+		description: 'Flag name',
+		displayOptions: {
+			show: {
+				resource: ['httpVerb'],
+				operation: ['get'],
+			},
+		},
+		type: 'string',
+		required: true,
+	},
+];
+
+
+export const httpVerbFields: INodeProperties[] = [
+	/* -------------------------------------------------------------------------- */
+	/*                                httpVerb:get                                */
+	/* -------------------------------------------------------------------------- */
+	...getOperation,
+];

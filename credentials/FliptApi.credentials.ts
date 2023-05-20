@@ -5,10 +5,10 @@ import {
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class HttpBinApi implements ICredentialType {
-	name = 'httpbinApi';
-	displayName = 'HttpBin API';
-	documentationUrl = '<your-docs-url>';
+export class FliptApi implements ICredentialType {
+	name = 'httpfliptapiApi';
+	displayName = 'Flipt API';
+	documentationUrl = 'https://www.flipt.io/docs/integration';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Token',
@@ -20,14 +20,10 @@ export class HttpBinApi implements ICredentialType {
 			displayName: 'Domain',
 			name: 'domain',
 			type: 'string',
-			default: 'https://httpbin.org',
+			default: 'https://www.flipt.io',
 		},
 	];
 
-	// This allows the credential to be used by other parts of n8n
-	// stating how this credential is injected as part of the request
-	// An example is the Http Request node that can make generic calls
-	// reusing this credential
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
@@ -37,11 +33,10 @@ export class HttpBinApi implements ICredentialType {
 		},
 	};
 
-	// The block below tells how this credential can be tested
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials?.domain}}',
-			url: '/bearer',
+			url: '/auth/v1/self',
 		},
 	};
 }
